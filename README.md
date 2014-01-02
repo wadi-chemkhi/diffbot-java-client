@@ -163,7 +163,14 @@ public class Demo {
 }
 ```
 
-see it working by using the maven exec command :
+Compile the demo with maven from within the demo folder :
+
+```Shell 
+$> mvn install
+```
+
+See it working by using the maven exec command :
+
 ```Shell 
 $> mvn exec:java
 ```
