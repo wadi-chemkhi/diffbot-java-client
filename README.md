@@ -38,7 +38,7 @@ This is example JSON data made by the articles API at http://api.diffbot.com/v2/
 
 Using diffbot-java client library this data can be mapped to any class with fields names matching json fields (type,icon,title,author ...).
 
-This is example java class that could be filled with data from the articles API according to fields' names :
+This is an example java class that could be filled with data from the articles API according to fields' names :
 ```Java
 public class BlogPost {
     private String title;
@@ -125,6 +125,8 @@ Now diffbot-java library dependency is accessible via the following maven depend
 Runing the Demo 
 ---------------
 
+Please notice that the previous steps are necessary in order to compile and run the demo.
+ 
 Demo code :
 
 ```Java
