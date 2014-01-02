@@ -5,12 +5,12 @@ Diffbot's Product API turns any commerce site into an on-demand product database
 
 To learn more about it, check out [diffbot.com](http://diffbot.com/)!
 
-How it works start
-------------------
+How it works 
+------------
 
 Diffbot offers a RESTful API for turning unstructured web pages into structured json data.
 
-Example JSON data made by the articles API at http://api.diffbot.com/v2/article
+This is example JSON data made by the articles API at http://api.diffbot.com/v2/article :
 
 ```JSON
 {
@@ -38,4 +38,132 @@ Example JSON data made by the articles API at http://api.diffbot.com/v2/article
 
 Using diffbot-java client library this data can be mapped to any class with fields names matching json fields (type,icon,title,author ...).
 
+This is example java class that could be filled with data from the articles API according to fields' names :
+```Java
+public class BlogPost {
+    private String title;
+    private String author;
+    private String text;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        return "BlogPost{" +
+                "title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
+}
+```
+
+In order to fill this class with data all we need to do is  :
+```Java
+	...
+	
+    public static void main(String[] args ){
+
+        String testToken="3....9c359";//set your api token here 
+
+        // Create DiffbotClient instance with the appropriate token
+        DiffbotClient articlesClient = new DiffbotClient(testToken);
+
+        /*
+         article data is loaded into the BlogPost class fields depending on the fields' names
+         if the class has a certain field available in the RESTful article resource then the field is filled with the
+         appropriate data
+         */
+       
+        BlogPost b= (BlogPost) articlesClient.getArticle(BlogPost.class,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(b.toString());
+
+    }
+	...
+```
+
+Compiling the project 
+---------------------
+
+From withing the diffbot-java directory run:
+
+```Shell 
+$> mvn install
+```
+
+Now diffbot-java library dependency is accessible via the following maven dependency :
+```XML
+	<dependency>
+        <groupId>diffbot</groupId>
+        <artifactId>diffbot-java</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+```
+
+Runing the Demo 
+---------------
+
+Demo code :
+
+```Java
+package com.diffbot.clients.demo;
+
+import com.diffbot.clients.DiffbotClient;
+
+/**
+ * Created by wadi chemkhi on 02/01/14.
+ * Email : wadi.chemkhi@gmail.com
+ */
+public class Demo {
+
+    public static void main(String[] args ){
+
+        String testToken="353883355a5c7ff1793b14f81e19c359";
+
+        // Create DiffbotClient instance with the appropriate token
+        DiffbotClient articlesClient = new DiffbotClient(testToken);
+
+        /*
+         article data is loaded into the Article class fields depending on the fields' names
+         if the class has a certain field available in the RESTful article resource then the field is filled with the
+         appropriate data
+         */
+        Article a= (Article) articlesClient.getArticle(Article.class,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(a.toString());
+
+        /*
+         Same thing with the BlogPost class. Fields are filled with the appropriate data depending on their names
+         */
+        BlogPost b= (BlogPost) articlesClient.getArticle(BlogPost.class,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(b.toString());
+
+    }
+}
+```
+
+see it working by using the maven exec command :
+```Shell 
+$> mvn exec:java
+```
