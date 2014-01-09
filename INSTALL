@@ -1,5 +1,5 @@
 INSTALLATION REQUIREMENTS:
-- Maven 3 : for compilating the project managing dependencies
+- Maven 3 : for compiling the project and managing dependencies
 - The Java Development Kit v 1.7 (JDK 1.7) : the jdk should be properly installed and configured to be used with maven
 - Internet connection : internet connection is required for downloading dependencies through maven and executing the demo and the unit tests.
 
