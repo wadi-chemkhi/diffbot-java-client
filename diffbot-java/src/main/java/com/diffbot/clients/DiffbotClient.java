@@ -1,8 +1,13 @@
 package com.diffbot.clients;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by wadi chemkhi on 02/01/14.
@@ -20,32 +25,48 @@ public class DiffbotClient {
     }
 
     /**
+     * @param clazz the class type for a single product . This can be any class with fields named similarly to a product element of the products array in defined by diffbot API.
+     * @param url the url to be processed using the diffbot API
+     * @return Object to be casted to the clazz type , filled with data from the diffbot API according to the provided url
+     */
+    public List<Object> getProducts(Class<?> clazz ,String url) throws IOException {
+        List<Object> products=new ArrayList<Object>();
+        JSONObject json =new JSONObject( httpClient.getProducts(url));
+        JSONArray jsonProducts=json.getJSONArray("products");
+        for(int i=0;i<jsonProducts.length();i++){
+            products.add(jsonToClass(clazz,jsonProducts.getJSONObject(i)));
+        }
+        return products;
+    }
+
+    /**
      * @param clazz the class type to be generated for output . This can be any class with fields named similarly to the article RESTFUL resource fields.
      * @param url the url to be processed using the diffbot API
      * @return Object to be casted to the clazz type , filled with data from the diffbot API according to the provided url
      */
-    public Object getArticle(Class<?> clazz ,String url){
+    public Object getArticle(Class<?> clazz ,String url) throws IOException {
 
+        return  jsonToClass(clazz,new JSONObject(httpClient.getArticle(url)));
+
+    }
+    private Object jsonToClass(Class clazz, JSONObject json ){
         Object instance=null;
         try {
             instance =clazz.newInstance();
-            JSONObject articleJson =new JSONObject( httpClient.getArticle(url));
             for (Field field : clazz.getDeclaredFields()){
-                if (articleJson.has(field.getName())){
+                if (json.has(field.getName())){
                     field.setAccessible(true);
-                    field.set(instance,toObject(field.getType(),articleJson.getString(field.getName())));
+                    field.set(instance,toObject(field.getType(),json.getString(field.getName())));
                     field.setAccessible(false);
                 }
             }
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
         return instance;
-    }
 
+    }
     private Object toObject( Class clazz, String value ) {
         if( Boolean.class.isAssignableFrom( clazz ) ) return Boolean.parseBoolean( value );
         if( Byte.class.isAssignableFrom( clazz ) ) return Byte.parseByte( value );

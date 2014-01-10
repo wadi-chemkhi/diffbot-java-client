@@ -27,19 +27,34 @@ public class DiffbotHttpClient {
         this.token=token;
     }
     /**
-     * @param url the url to be processed using the diffbot API.
+     * @param url the url to be processed using the diffbot articles API.
      * @return String representing the json data of an article according to the provided url.
      */
-    public String getArticle(String url){
+    public String getArticle(String url) throws IOException {
+    return getJson("article", url);
+
+    }
+
+    /**
+     * @param url the url to be processed using the diffbot products API.
+     * @return String representing the json data of an array of products according to the provided url.
+     */
+    public String getProducts(String url) throws IOException {
+        return getJson("product", url);
+
+    }
+
+    private String getJson(String api,String url ) throws IOException {
+
         URI uri=null;
         try{
-        uri = new URIBuilder()
-                .setScheme("http")
-                .setHost("api.diffbot.com")
-                .setPath("/v2/article")
-                .setParameter("token", token)
-                .setParameter("url", url)
-                .build();}
+            uri = new URIBuilder()
+                    .setScheme("http")
+                    .setHost("api.diffbot.com")
+                    .setPath("/v2/"+api)
+                    .setParameter("token", token)
+                    .setParameter("url", url)
+                    .build();}
         catch (URISyntaxException e){
             e.printStackTrace();
 
@@ -49,7 +64,7 @@ public class DiffbotHttpClient {
         HttpGet httpGet = new HttpGet(uri);
         CloseableHttpResponse response=null;
         String json=null;
-        try {
+
             response = httpClient.execute(httpGet);
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     response.getEntity().getContent(), "utf-8"), 8);
@@ -60,9 +75,6 @@ public class DiffbotHttpClient {
             }
             json=sb.toString();
             response.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return json;
 
     }

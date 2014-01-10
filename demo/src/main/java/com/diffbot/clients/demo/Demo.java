@@ -2,6 +2,8 @@ package com.diffbot.clients.demo;
 
 import com.diffbot.clients.DiffbotClient;
 
+import java.io.IOException;
+
 /**
  * Created by wadi chemkhi on 02/01/14.
  * Email : wadi.chemkhi@gmail.com
@@ -15,6 +17,7 @@ public class Demo {
         //Create DiffbotClient instance with the appropriate token
         DiffbotClient articlesClient = new DiffbotClient(testToken);
 
+        try{
         /*
          article data is loaded into the Article class fields depending on the fields' names
          if the class has a certain field available in the RESTful article resource then the field is filled with the
@@ -28,5 +31,8 @@ public class Demo {
          */
         BlogPost b= (BlogPost) articlesClient.getArticle(BlogPost.class,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
         System.out.println(b.toString());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
