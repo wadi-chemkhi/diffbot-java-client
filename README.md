@@ -20,6 +20,7 @@ It  offers three approaches to handling data received from the diffbot API :
 
 1. Compiling the project
 In order to make the diffbot-java library available in your local maven repository, run maven's `install` command from within the diffbot-java directory :
+
 ```Shell
 $> mvn install
 ```
