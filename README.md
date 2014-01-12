@@ -328,7 +328,7 @@ A List of java POJOs can be generated according to the product api response data
 
 #### V-3-3 Calling any API using it's name
 
-##### V-3-3-1 The `DiffbotClient.callApi` method :
+##### 1 The `DiffbotClient.callApi` method :
 
 This method offers the possibility to call any available diffbot api using it's name.
 There two overloaded signatures of this method :
@@ -348,7 +348,7 @@ JsonNode a= (JsonNode) client.callApi("article",DiffbotClient.ResponseType.Jacks
 
 
 
-##### V-3-3-2 Calling any API using it's name
+##### 2 Calling any API using it's name
 Using diffbot's `Custom API Toolkit` it's possible to define custom APIs to extract
 
 >The Product API analyzes a shopping or e-commerce product page and returns information on the product.
