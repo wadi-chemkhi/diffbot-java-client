@@ -8,7 +8,7 @@ It  offers three approaches to handling data received from the diffbot API :
 * Raw json manipulation through [JSONObjec](http://www.json.org/javadoc/org/json/JSONObject.html)
 * Raw json manipulation through jackson's [JsonNode](http://jackson.codehaus.org/1.7.9/javadoc/org/codehaus/jackson/JsonNode.html)
 
-## II- Installation
+## II - Installation
 
 ### II-1 Installation requirements:
 
@@ -19,7 +19,6 @@ It  offers three approaches to handling data received from the diffbot API :
 ### II-2 Adding the maven dependencies
 
 1. Compiling the project
-
 In order to make the diffbot-java library available in your local maven repository, run maven's `install` command from within the diffbot-java directory :
 ```Shell
 $> mvn install
