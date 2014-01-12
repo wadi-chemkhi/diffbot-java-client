@@ -52,6 +52,7 @@ Now diffbot-java library dependency is accessible via the following maven depend
     </dependencies>
 </project>
 ```
+
 ## III- Configuration
 
 A developer token must be provided in order to be able access the diffbot api. When using the `diffbot-java` client api it can be done through the client's constructor.
