@@ -2,11 +2,12 @@
 
 ## I- Preface
 
-This API follows the convention over configuration principle in order to allow access to [diffbot](http://diffbot.com/) API
+This API follows the convention over configuration principle in order to allow access to [diffbot](http://diffbot.com/) API.
+
 It  offers three approaches to handling data received from the diffbot API :
-* Filling java classes with json data using [Jackson](http://jackson.codehaus.org/‎)'s pojo marshalling
-* Raw json manipulation through [JSONObjec](http://www.json.org/javadoc/org/json/JSONObject.html)
-* Raw json manipulation through jackson's [JsonNode](http://jackson.codehaus.org/1.7.9/javadoc/org/codehaus/jackson/JsonNode.html)
+* Filling java classes with json data using [Jackson](http://jackson.codehaus.org/‎)'s pojo marshalling.
+* Raw json manipulation through [JSONObjec](http://www.json.org/javadoc/org/json/JSONObject.html).
+* Raw json manipulation through jackson's [JsonNode](http://jackson.codehaus.org/1.7.9/javadoc/org/codehaus/jackson/JsonNode.html).
 
 ## II - Installation
 
