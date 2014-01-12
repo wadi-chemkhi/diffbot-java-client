@@ -12,9 +12,9 @@ It  offers three approaches to handling data received from the diffbot API :
 
 ### II-1 Installation requirements:
 
-.* Maven 3 : for compiling the project and managing dependencies
-.* The Java Development Kit v 1.7 (JDK 1.7) : the jdk should be properly installed and configured to be used with maven
-.* Internet connection : internet connection is required for downloading dependencies through maven and executing the demo and the unit tests.
+* Maven 3 : for compiling the project and managing dependencies
+* The Java Development Kit v 1.7 (JDK 1.7) : the jdk should be properly installed and configured to be used with maven
+* Internet connection : internet connection is required for downloading dependencies through maven and executing the demo and the unit tests.
 
 ### II-2 Adding the maven dependencies
 
@@ -337,7 +337,7 @@ There two overloaded signatures of this method :
 .. ```java
 DiffbotClient client = new DiffbotClient(testToken);
 JsonNode a= (JsonNode) client.callApi("article",DiffbotClient.ResponseType.Jackson,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
-```           
+```
 
 2. `public Object callApi(String api,Class<?> clazz ,String url) throws IOException`
 
