@@ -7,6 +7,8 @@ package com.diffbot.clients;
 public class Article {
     private String icon;
     private String author;
+    private String notFromJSON;
+
 
     @Override
     public String toString() {
@@ -27,5 +29,13 @@ public class Article {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getNotFromJSON() {
+        return notFromJSON;
+    }
+
+    public void setNotFromJSON(String notFromJSON) {
+        this.notFromJSON = notFromJSON;
     }
 }

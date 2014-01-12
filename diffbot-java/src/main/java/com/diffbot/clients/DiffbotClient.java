@@ -1,5 +1,7 @@
 package com.diffbot.clients;
 
+import org.codehaus.jackson.map.DeserializationConfig;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -7,7 +9,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by wadi chemkhi on 02/01/14.
@@ -45,9 +46,22 @@ public class DiffbotClient {
      * @return Object to be casted to the clazz type , filled with data from the diffbot API according to the provided url
      */
     public Object getArticle(Class<?> clazz ,String url) throws IOException {
+        return  jsonStringToClass(clazz, httpClient.getArticle(url));
+    }
 
-        return  jsonToClass(clazz,new JSONObject(httpClient.getArticle(url)));
-
+    public Object callApi(String api,Class<?> clazz ,String url) throws IOException {
+        return jsonStringToClass(clazz,httpClient.getJson(api,url));
+    }
+    public Object callApi(String api,ResponseType responseType,String url) throws IOException {
+        Object instance=null;
+        switch (responseType){
+            case Jackson:  ObjectMapper mapper = new ObjectMapper();
+                mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+                instance= mapper.readTree(httpClient.getJson(api, url));
+                break;
+            default: instance= new JSONObject(httpClient.getJson(api, url));
+        }
+        return instance;
     }
     private Object jsonToClass(Class clazz, JSONObject json ){
         Object instance=null;
@@ -67,6 +81,13 @@ public class DiffbotClient {
         return instance;
 
     }
+    private Object jsonStringToClass(Class clazz, String json ) throws IOException {
+        Object instance=null;
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+        instance = mapper.readValue(json, clazz);
+        return instance;
+    }
     private Object toObject( Class clazz, String value ) {
         if( Boolean.class.isAssignableFrom( clazz ) ) return Boolean.parseBoolean( value );
         if( Byte.class.isAssignableFrom( clazz ) ) return Byte.parseByte( value );
@@ -78,4 +99,9 @@ public class DiffbotClient {
         return value;
     }
 
+    public enum ResponseType{
+        Jackson,
+        JSONObject
+
+    }
 }

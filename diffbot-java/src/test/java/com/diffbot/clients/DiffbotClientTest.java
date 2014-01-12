@@ -1,5 +1,7 @@
 package com.diffbot.clients;
 
+import org.codehaus.jackson.JsonNode;
+import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -28,4 +30,37 @@ public class DiffbotClientTest {
         System.out.println(a.toString());
     }
 
+    @Test
+    public void callApiTest() throws IOException {
+        DiffbotClient client = new DiffbotClient(testToken);
+        Article a= (Article) client.callApi("article", Article.class, "http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(a.toString());
+    }
+
+    @Test
+    public void callApiJacksonTest() throws IOException {
+        DiffbotClient client = new DiffbotClient(testToken);
+        JsonNode a= (JsonNode) client.callApi("article",DiffbotClient.ResponseType.Jackson,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(a.toString());
+    }
+
+    @Test
+    public void callApiJSONObjectTest() throws IOException {
+        DiffbotClient client = new DiffbotClient(testToken);
+        JSONObject a= (JSONObject) client.callApi("article",DiffbotClient.ResponseType.JSONObject,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(a.toString());
+    }
+
+    @Test
+    public void callApiCustomJacksonTest() throws IOException {
+        DiffbotClient client = new DiffbotClient(testToken);
+        JsonNode a= (JsonNode) client.callApi("CustomAPI",DiffbotClient.ResponseType.Jackson,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
+        System.out.println(a.toString());
+    }
+    @Test
+    public void callApiCustomClassTest() throws IOException {
+        DiffbotClient client = new DiffbotClient(testToken);
+        BlogPost a= (BlogPost) client.callApi("CustomAPI",BlogPost.class,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
+        System.out.println(a.toString());
+    }
 }

@@ -32,7 +32,6 @@ public class DiffbotHttpClient {
      */
     public String getArticle(String url) throws IOException {
     return getJson("article", url);
-
     }
 
     /**
@@ -44,7 +43,7 @@ public class DiffbotHttpClient {
 
     }
 
-    private String getJson(String api,String url ) throws IOException {
+    public String getJson(String api,String url ) throws IOException {
 
         URI uri=null;
         try{
