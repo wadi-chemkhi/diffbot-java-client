@@ -2,9 +2,9 @@
 
 ## I- Preface
 
-This API follows the convention over configuration principle in order to allow access to [diffbot](http://diffbot.com/) API.
+This API offers, via  [diffbot](http://diffbot.com/), the possibility to map unstructured web data into java classes or its manipulation as raw JSON.
 
-It  offers three approaches to handling data received from the diffbot API :
+It offers three approaches to handling data received from the diffbot API :
 * Filling java classes with json data using [Jackson](http://jackson.codehaus.org/‎)'s pojo marshalling.
 * Raw json manipulation through [JSONObjec](http://www.json.org/javadoc/org/json/JSONObject.html).
 * Raw json manipulation through jackson's [JsonNode](http://jackson.codehaus.org/1.7.9/javadoc/org/codehaus/jackson/JsonNode.html).
@@ -92,8 +92,9 @@ This api uses :
 
 
 ## V- Usage
+This API follows the convention over configuration principle in order to allow access to the [diffbot](http://diffbot.com/) API.
 
-### V-1- Understanding diffbot RESTful API
+### V-1- Understanding diffbot's RESTful API
 Diffbot offers a RESTful API for turning unstructured web pages into structured json data.
 
 This is example JSON data made by the article API at http://api.diffbot.com/v2/article :
@@ -204,8 +205,6 @@ In order to fill this class with data all we need to do is  :
 #### V-2-2 Using the products API
 
 >The Product API analyzes a shopping or e-commerce product page and returns information on the product.
-
-
 
 This is example JSON data made by the product API at http://api.diffbot.com/v2/product :
 
@@ -326,6 +325,7 @@ A List of java POJOs can be generated according to the product api response data
     }
 	...
 ```
+
 #### V-3-3 Calling any API using it's name
 
 ##### V-3-3-1 The `DiffbotClient.callApi` method :
@@ -333,10 +333,11 @@ A List of java POJOs can be generated according to the product api response data
 This method offers the possibility to call any available diffbot api using it's name.
 There two overloaded signatures of this method :
 1. `public Object callApi(String api,ResponseType responseType,String url) throws IOException`
-.. This method returns a raw json manipulation Object that can be either json.org's JSONObject or Jackson's JsonNode ,if preferred.
-.. The choice can be made using the DiffbotClient.ResponseType enumeration : `public enum ResponseType{ Jackson, JSONObject }`
-.. Usage example :
-.. ```java
+
+This method returns a raw json manipulation Object that can be either json.org's JSONObject or Jackson's JsonNode ,if preferred.
+The choice can be made using the DiffbotClient.ResponseType enumeration : `public enum ResponseType{ Jackson, JSONObject }`
+Usage example :
+```java
 DiffbotClient client = new DiffbotClient(testToken);
 JsonNode a= (JsonNode) client.callApi("article",DiffbotClient.ResponseType.Jackson,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
 ```
