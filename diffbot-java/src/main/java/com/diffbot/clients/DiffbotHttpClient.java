@@ -19,11 +19,17 @@ import java.net.URISyntaxException;
 public class DiffbotHttpClient {
 
     private String token;
+    private String version;
 
     /**
      * @param token the access token for the diffbot API
      */
     public DiffbotHttpClient(String token)  {
+        this.token=token;
+        this.version="2";
+    }
+    public DiffbotHttpClient(String token,String version)  {
+        this.version=version;
         this.token=token;
     }
     /**
@@ -50,7 +56,7 @@ public class DiffbotHttpClient {
             uri = new URIBuilder()
                     .setScheme("http")
                     .setHost("api.diffbot.com")
-                    .setPath("/v2/"+api)
+                    .setPath("/v"+version+"/"+api)
                     .setParameter("token", token)
                     .setParameter("url", url)
                     .build();}

@@ -24,6 +24,9 @@ public class DiffbotClient {
     public DiffbotClient(String token) {
         httpClient=new DiffbotHttpClient(token);
     }
+    public DiffbotClient(String token,String version) {
+        httpClient=new DiffbotHttpClient(token,version);
+    }
 
     /**
      * @param clazz the class type for a single product . This can be any class with fields named similarly to a product element of the products array in defined by diffbot API.

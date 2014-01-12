@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by wadi chemkhi on 02/01/14.
@@ -13,6 +14,15 @@ import java.io.IOException;
 public class DiffbotClientTest {
 
     private String testToken="353883355a5c7ff1793b14f81e19c359";
+
+    @Test
+    public void getArticleTestV2() throws IOException {
+        DiffbotClient articlesClient = new DiffbotClient(testToken,"2");
+        Article a= (Article) articlesClient.getArticle(Article.class,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        BlogPost b= (BlogPost) articlesClient.getArticle(BlogPost.class,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
+        System.out.println(a.toString());
+        System.out.println(b.toString());
+    }
 
     @Test
     public void getArticleTest() throws IOException {
@@ -25,9 +35,10 @@ public class DiffbotClientTest {
 
     @Test
     public void getProductTest() throws IOException {
-        DiffbotClient articlesClient = new DiffbotClient(testToken);
-        Product a= (Product) articlesClient.getProducts(Product.class,"http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html").get(0);
-        System.out.println(a.toString());
+        DiffbotClient client = new DiffbotClient(testToken);
+        List<Product> l= (List) client.getProducts(Product.class,"http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html");
+        for(Product p :l)
+        System.out.println(p.toString());
     }
 
     @Test
@@ -52,7 +63,7 @@ public class DiffbotClientTest {
     }
 
     @Test
-    public void callApiCustomJacksonTest() throws IOException {
+    public void callApiCustomJsonNodeTest() throws IOException {
         DiffbotClient client = new DiffbotClient(testToken);
         JsonNode a= (JsonNode) client.callApi("CustomAPI",DiffbotClient.ResponseType.Jackson,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
         System.out.println(a.toString());
