@@ -85,10 +85,10 @@ The second constructor parameter specifies the desired api version.
 
 ## IV- Third party dependencies
 This api uses :
-.* Apache's HttpComponents - HttpClient for http operations
-.* Jackson framework for pojo-json marshalling
-.* Jackson's JsonNode as an option for raw json manipulation
-.* json.org's JSONObject as an option for raw json manipulation
+* Apache's HttpComponents - HttpClient for http operations
+* Jackson framework for pojo-json marshalling
+* Jackson's JsonNode as an option for raw json manipulation
+* json.org's JSONObject as an option for raw json manipulation
 
 
 ## V- Usage
