@@ -332,8 +332,8 @@ A List of java POJOs can be generated according to the product api response data
 
 This method offers the possibility to call any available diffbot api using it's name.
 There two overloaded signatures of this method :
-1. `public Object callApi(String api,ResponseType responseType,String url) throws IOException`
 
+1.`public Object callApi(String api,ResponseType responseType,String url) throws IOException`
 This method returns a raw json manipulation Object that can be either json.org's JSONObject or Jackson's JsonNode ,if preferred.
 The choice can be made using the DiffbotClient.ResponseType enumeration : `public enum ResponseType{ Jackson, JSONObject }`
 Usage example :
@@ -342,7 +342,7 @@ DiffbotClient client = new DiffbotClient(testToken);
 JsonNode a= (JsonNode) client.callApi("article",DiffbotClient.ResponseType.Jackson,"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/");
 ```
 
-2. `public Object callApi(String api,Class<?> clazz ,String url) throws IOException`
+2.`public Object callApi(String api,Class<?> clazz ,String url) throws IOException`
 
 
 
