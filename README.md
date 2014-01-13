@@ -326,16 +326,17 @@ A List of java POJOs can be generated according to the product api response data
 	...
 ```
 
+
 #### V-3-3 Calling any API using it's name
 
-##### 1 The `DiffbotClient.callApi` method :
+##### The `DiffbotClient.callApi` method :
 
 This method offers the possibility to call any available diffbot api using it's name.
-There two overloaded signatures of this method :
+There two overloaded signatures for this method :
 
 1.`public Object callApi(String api,ResponseType responseType,String url) throws IOException`
 
-This method returns a raw json manipulation Object that can be either json.org's JSONObject or Jackson's JsonNode, if preferred.
+This method returns a raw json manipulation Object that can be either json.org's `JSONObject` or Jackson's `JsonNode`, if preferred.
 The choice can be made using the DiffbotClient.ResponseType enumeration : `public enum ResponseType{ Jackson, JSONObject }`
 
 Usage example :
@@ -346,133 +347,27 @@ JsonNode a= (JsonNode) client.callApi("article",DiffbotClient.ResponseType.Jacks
 
 2.`public Object callApi(String api,Class<?> clazz ,String url) throws IOException`
 
+This method returns an instance of the `clazz` class filled with data returned from the REST api call
 
-
-##### 2 Calling any API using it's name
-Using diffbot's `Custom API Toolkit` it's possible to define custom APIs to extract
-
->The Product API analyzes a shopping or e-commerce product page and returns information on the product.
-
-This is example JSON data made by the product API at http://api.diffbot.com/v2/product :
-
-```JSON
-{
-  "type": "product",
-  "products": [
-    {
-      "title": "iRobot 650 Roomba Vacuuming Robot",
-      "description": "The new iRobot Roomba 650 Vacuum Cleaning Robot provides a superior level of cleaning with less work for you. With AeroVac Technology and a new brush design, Roomba 650 is better equipped to handle fibers like hair, pet fur, lint and carpet fuzz. Materials: Vacuum Cleaning Robot Dimensions: 17 inches long x 18 inches wide x 5 inches high Weight: 11 pounds Included parts: One (1)Roomba 650 Vacuum Cleaning Robot With AeroVac Bin, one (1) Self-Charging Home Base, one (1) Battery Charger, one (1) Extra AeroVac Filter, one (1) Auto Virtual Wall and one (1) Brush Cleaning Tool Power source: Battery Model: iRobot Roomba 650",
-      "offerPrice": "$399.99",
-      "productId": "15268099",
-      "media": [
-        {
-          "height": 320,
-          "width": 320,
-          "primary": true,
-          "link": "http://ak1.ostkcdn.com/images/products/7886009/cc8883ce-f6a0-44a7-836b-b55b4f9ce1ef_320.jpg",
-          "caption": "The new iRobot Roomba 650 Vacuum Cleaning Robot provides a superior level of cleaning with less work for you. With AeroVac Technology and a new brush design, Roomba 650 is better equipped to handle fibers like hair, pet fur, lint and carpet fuzz.",
-          "type": "image",
-          "xpath": "/HTML/BODY/DIV[@id='product-page']/DIV[@id='bd']/DIV[@id='pageContainer']/DIV[@id='productWrap']/DIV[@id='prod_leftCol']/DIV[@id='prod_main']/DIV[@id='prod_mainLeft']/DIV[@id='proImageContainer']/DIV[@id='proImageHero']/DIV[@class='proImageStack']/DIV[@class='proImageCenter']/IMG"
-        }
-      ]
-    }
-  ],
-  "url": "http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html"
-}
+Usage example :
+```java
+DiffbotClient client = new DiffbotClient(testToken);
+BlogPost a= (BlogPost) client.callApi("article",BlogPost.class,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
 ```
 
-This is an example java class that could be filled with data from the articles API according to fields' names :
+##### Calling Custom API  API using it's name
 
-```Java
-package com.diffbot.clients;
+Using diffbot's `Custom API Toolkit` it's possible to define custom APIs to extract data from web sites according to custom rules.
 
-/**
- * Created by wadi chemkhi on 10/01/14.
- * Email : wadi.chemkhi@gmail.com
- */
-public class Product {
-    String title;
-    String description;
-    String offerPrice;
-    String regularPrice;
-    String saveAmount;
+These custom APIs are accessible via the `DiffbotClient.callApi` method when provided with appropriate custom API method.
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getOfferPrice() {
-        return offerPrice;
-    }
-
-    public void setOfferPrice(String offerPrice) {
-        this.offerPrice = offerPrice;
-    }
-
-    public String getRegularPrice() {
-        return regularPrice;
-    }
-
-    public void setRegularPrice(String regularPrice) {
-        this.regularPrice = regularPrice;
-    }
-
-    public String getSaveAmount() {
-        return saveAmount;
-    }
-
-    public void setSaveAmount(String saveAmount) {
-        this.saveAmount = saveAmount;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", offerPrice='" + offerPrice + '\'' +
-                ", regularPrice='" + regularPrice + '\'' +
-                ", saveAmount='" + saveAmount + '\'' +
-                '}';
-    }
-}
-
+Usage example :
+```java
+DiffbotClient client = new DiffbotClient(testToken);
+BlogPost a= (BlogPost) client.callApi("CustomAPI",BlogPost.class,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
 ```
 
-A List of java POJOs can be generated according to the product api response data through the `DiffbotClient` .
-
-```Java
-	...
-
-    public static void main(String[] args ){
-
-        String testToken="3....9c359";//set your api token here
-
-        // Create DiffbotClient instance with the appropriate token
-        DiffbotClient client = new DiffbotClient(testToken);
-
-        // Received products data (json array) is loaded into a List of Product POJOs depending on the class fields' names
-        List<Product> l= (List) client.getProducts(Product.class,"http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html");
-
-        for(Product p :l)
-        System.out.println(p.toString());
-
-    }
-	...
-```
-
+Please notice that the custom API named `"CustomAPI"` must be configured on the account accessible by the provided token.
 
 ## VI- Runing the Demo
 
@@ -520,7 +415,7 @@ public class Demo {
 Compile the demo with maven from within the demo folder :
 
 ```Shell 
-$> mvn install
+$> mvn compile
 ```
 
 See it working by using the maven exec command :
