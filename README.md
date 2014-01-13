@@ -369,6 +369,10 @@ BlogPost a= (BlogPost) client.callApi("CustomAPI",BlogPost.class,"http://wadi-ch
 
 Please notice that the custom API named `"CustomAPI"` must be configured on the account accessible by the provided token.
 
+#### V-3-4 Accessing the Analyse API
+
+#### V-3-5 Submitting a crawl job
+
 ## VI- Runing the Demo
 
 
