@@ -124,7 +124,7 @@ This is example JSON data made by the article API at http://api.diffbot.com/v2/a
 ```
 ### V-2- Understanding diffbot-java API
 
-Using diffbot-java client library this data can be either :
+Using diffbot-java client library this data can be :
 * Mapped to any class with fields names matching json fields (type,icon,title,author ...).
 * Or manipulated as raw json data using the JSONObject API or Jackson's JsonNode
 
