@@ -371,6 +371,18 @@ Please notice that the custom API named `"CustomAPI"` must be configured on the 
 
 #### V-3-4 Accessing the Analyse API
 
+`public Object analyze(Class<?> clazz ,String url) throws IOException` :
+Analyzes the provided url and maps the result in a POJO of type `clazz`.
+
+`public Object analyze(ResponseType responseType ,String url) throws IOException` :
+Analyzes the provided url and returns a raw json manipulation object depending on the specified ResponseType choice.
+
+Example
+```java
+DiffbotClient client = new DiffbotClient(testToken);
+JsonNode a= (JsonNode) client.analyze(DiffbotClient.ResponseType.Jackson,"https://github.com/wadi-chemkhi/diffbot-java-client");
+```
+
 #### V-3-5 Submitting a crawl job
 
 ## VI- Runing the Demo
