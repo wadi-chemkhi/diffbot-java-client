@@ -1,11 +1,16 @@
 package com.diffbot.clients;
 
+import com.diffbot.clients.models.Article;
+import com.diffbot.clients.models.BlogPost;
+import com.diffbot.clients.models.Product;
 import org.codehaus.jackson.JsonNode;
 import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wadi chemkhi on 02/01/14.
@@ -36,7 +41,7 @@ public class DiffbotClientTest {
     @Test
     public void getProductTest() throws IOException {
         DiffbotClient client = new DiffbotClient(testToken);
-        List<Product> l= (List) client.getProducts(Product.class,"http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html");
+        List<Product> l= (List) client.getProducts(Product.class, "http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html");
         for(Product p :l)
         System.out.println(p.toString());
     }
@@ -71,7 +76,15 @@ public class DiffbotClientTest {
     @Test
     public void callApiCustomClassTest() throws IOException {
         DiffbotClient client = new DiffbotClient(testToken);
-        BlogPost a= (BlogPost) client.callApi("CustomAPI",BlogPost.class,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
+        BlogPost a= (BlogPost) client.callApi("article",BlogPost.class,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html");
+        System.out.println(a.toString());
+    }
+    @Test
+    public void callApiParamsTest() throws IOException {
+        DiffbotClient client = new DiffbotClient(testToken);
+        Map<String,String> params = new HashMap<>();
+        params.put("fields","title,author");
+        BlogPost a= (BlogPost) client.callApi("article",BlogPost.class,"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html",params);
         System.out.println(a.toString());
     }
 }
