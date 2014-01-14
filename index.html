@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Diffbot-java-client by wadi-chemkhi</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Diffbot-java-client</h1>
+        <h2>This API offers, via diffbot.com, the possibility to map unstructured web data into java classes or its manipulation as raw JSON.</h2>
+        <a href="https://github.com/wadi-chemkhi/diffbot-java-client" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="diffbot-api-java-client" class="anchor" href="#diffbot-api-java-client"><span class="octicon octicon-link"></span></a>Diffbot API Java client</h1>
+
+<h2>
+<a name="i--preface" class="anchor" href="#i--preface"><span class="octicon octicon-link"></span></a>I- Preface</h2>
+
+<p>This API offers, via  <a href="http://diffbot.com/">diffbot</a>, the possibility to map unstructured web data into java classes or its manipulation as raw JSON.</p>
+
+<p>It offers three approaches to handling data received from the diffbot API :</p>
+
+<ul>
+<li>Filling java classes with json data using <a href="http://jackson.codehaus.org/%E2%80%8E">Jackson</a>'s pojo marshalling.</li>
+<li>Raw json manipulation through <a href="http://www.json.org/javadoc/org/json/JSONObject.html">JSONObjec</a>.</li>
+<li>Raw json manipulation through jackson's <a href="http://jackson.codehaus.org/1.7.9/javadoc/org/codehaus/jackson/JsonNode.html">JsonNode</a>.</li>
+</ul><h2>
+<a name="ii---installation" class="anchor" href="#ii---installation"><span class="octicon octicon-link"></span></a>II - Installation</h2>
+
+<h3>
+<a name="ii-1-installation-requirements" class="anchor" href="#ii-1-installation-requirements"><span class="octicon octicon-link"></span></a>II-1 Installation requirements:</h3>
+
+<ul>
+<li>Maven 3 : for compiling the project and managing dependencies</li>
+<li>The Java Development Kit v 1.7 (JDK 1.7) : the jdk should be properly installed and configured to be used with maven</li>
+<li>Internet connection : internet connection is required for downloading dependencies through maven and executing the demo and the unit tests.</li>
+</ul><h3>
+<a name="ii-2-adding-the-maven-dependencies" class="anchor" href="#ii-2-adding-the-maven-dependencies"><span class="octicon octicon-link"></span></a>II-2 Adding the maven dependencies</h3>
+
+<ol>
+<li>
+<p>Compiling the project
+In order to make the diffbot-java library available in your local maven repository, run maven's <code>install</code> command from within the diffbot-java directory :</p>
+
+<pre lang="Shell"><code>$&gt; mvn install
+</code></pre>
+</li>
+<li>
+<p>Adding the dependency
+Now diffbot-java library dependency is accessible via the following maven dependency :</p>
+
+<div class="highlight highlight-XML"><pre><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>diffbot<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>diffbot-java<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</pre></div>
+</li>
+<li>
+<p>Example maven pom file ( from the demo project ) :</p>
+
+<div class="highlight highlight-XML"><pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;project</span> <span class="na">xmlns=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span>
+     <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+     <span class="na">xsi:schemaLocation=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+<span class="nt">&lt;groupId&gt;</span>diffbot<span class="nt">&lt;/groupId&gt;</span>
+<span class="nt">&lt;artifactId&gt;</span>diffbot-java-demo<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>diffbot<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>diffbot-java<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/project&gt;</span>
+</pre></div>
+</li>
+</ol><h2>
+<a name="iii--configuration" class="anchor" href="#iii--configuration"><span class="octicon octicon-link"></span></a>III- Configuration</h2>
+
+<p>A developer token must be provided in order to be able access the diffbot api. When using the <code>diffbot-java</code> client api it can be done through the client's constructor.</p>
+
+<div class="highlight highlight-Java"><pre>    <span class="o">...</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">){</span>
+        <span class="n">String</span> <span class="n">testToken</span><span class="o">=</span><span class="s">"3....9c359"</span><span class="o">;</span><span class="c1">//set your api token here</span>
+        <span class="c1">// Create DiffbotClient instance with the appropriate token</span>
+        <span class="n">DiffbotClient</span> <span class="n">articlesClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+     <span class="o">...</span>
+     <span class="o">}</span>
+     <span class="o">...</span>
+</pre></div>
+
+<p>Optionally , it is possible to choose a specific api version to work with :</p>
+
+<div class="highlight highlight-Java"><pre>    <span class="o">...</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">){</span>
+        <span class="n">String</span> <span class="n">testToken</span><span class="o">=</span><span class="s">"3....9c359"</span><span class="o">;</span><span class="c1">//set your api token here</span>
+        <span class="c1">// Create DiffbotClient instance with the appropriate token and version</span>
+        <span class="n">DiffbotClient</span> <span class="n">articlesClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">,</span><span class="s">"2"</span><span class="o">);</span>
+     <span class="o">...</span>
+     <span class="o">}</span>
+     <span class="o">...</span>
+</pre></div>
+
+<p>The second constructor parameter specifies the desired api version.</p>
+
+<h2>
+<a name="iv--third-party-dependencies" class="anchor" href="#iv--third-party-dependencies"><span class="octicon octicon-link"></span></a>IV- Third party dependencies</h2>
+
+<p>This api uses :</p>
+
+<ul>
+<li>Apache's HttpComponents - HttpClient for http operations</li>
+<li>Jackson framework for pojo-json marshalling</li>
+<li>Jackson's JsonNode as an option for raw json manipulation</li>
+<li>json.org's JSONObject as an option for raw json manipulation</li>
+</ul><h2>
+<a name="v--usage" class="anchor" href="#v--usage"><span class="octicon octicon-link"></span></a>V- Usage</h2>
+
+<p>This API follows the convention over configuration principle in order to allow access to the <a href="http://diffbot.com/">diffbot</a> API.</p>
+
+<h3>
+<a name="v-1--understanding-diffbots-restful-api" class="anchor" href="#v-1--understanding-diffbots-restful-api"><span class="octicon octicon-link"></span></a>V-1- Understanding diffbot's RESTful API</h3>
+
+<p>Diffbot offers a RESTful API for turning unstructured web pages into structured json data.</p>
+
+<p>This is example JSON data made by the article API at <a href="http://api.diffbot.com/v2/article">http://api.diffbot.com/v2/article</a> :</p>
+
+<div class="highlight highlight-JSON"><pre><span class="p">{</span>
+  <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"article"</span><span class="p">,</span>
+  <span class="nt">"icon"</span><span class="p">:</span> <span class="s2">"http://www.diffbot.com/favicon.ico"</span><span class="p">,</span>
+  <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"Diffbot's New Product API Teaches Robots to Shop Online"</span><span class="p">,</span>
+  <span class="nt">"author"</span><span class="p">:</span> <span class="s2">"John Davi"</span><span class="p">,</span>
+  <span class="nt">"date"</span><span class="p">:</span> <span class="s2">"Wed, 31 Jul 2013 08:00:00 GMT"</span><span class="p">,</span>
+  <span class="nt">"media"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">"primary"</span><span class="p">:</span> <span class="s2">"true"</span><span class="p">,</span>
+      <span class="nt">"link"</span><span class="p">:</span> <span class="s2">"http://www.youtube.com/embed/lfcri5ungRo?feature=oembed"</span><span class="p">,</span>
+      <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"video"</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">"tags"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">"e-commerce"</span><span class="p">,</span>
+    <span class="s2">"SaaS"</span>
+  <span class="p">]</span>
+  <span class="s2">"url"</span><span class="p">:</span> <span class="s2">"http://blog.diffbot.com/diffbots-new-product-api-teaches-robots-to-shop-online/"</span><span class="p">,</span>
+  <span class="nt">"humanLanguage"</span><span class="p">:</span> <span class="s2">"en"</span><span class="p">,</span>
+  <span class="nt">"text"</span><span class="p">:</span> <span class="s2">"Diffbot's human wranglers are proud today to announce the release of our newest product: an API for... products!\nThe Product API can be used for extracting clean, structured data from any e-commerce product page. It automatically makes available all the product data you'd expect: price, discount/savings amount, shipping cost, product description, any relevant product images, SKU and/or other product IDs.\nEven cooler: pair the Product API with Crawlbot, our intelligent site-spidering tool, and let Diffbot determine which pages are products, then automatically structure the entire catalog. Here's a quick demonstration of Crawlbot at work:\nWe've developed the Product API over the course of two years, building upon our core vision technology that's extracted structured data from billions of web pages, and training our machine learning systems using data from tens of thousands of unique shopping sites. We can't wait for you to try it out.\nWhat are you waiting for? Check out the Product API documentation and dive on in! If you need a token, check out our pricing and plans (including our Free plan).\nQuestions? Hit us up at support@diffbot.com ."</span>
+<span class="p">}</span>
+</pre></div>
+
+<h3>
+<a name="v-2--understanding-diffbot-java-api" class="anchor" href="#v-2--understanding-diffbot-java-api"><span class="octicon octicon-link"></span></a>V-2- Understanding diffbot-java API</h3>
+
+<p>Using diffbot-java client library this data can be :</p>
+
+<ul>
+<li>Mapped to any class with fields names matching json fields (type,icon,title,author ...).</li>
+<li>Or manipulated as raw json data using the JSONObject API or Jackson's JsonNode</li>
+</ul><h4>
+<a name="v-2-1-using-the-article-api" class="anchor" href="#v-2-1-using-the-article-api"><span class="octicon octicon-link"></span></a>V-2-1 Using the article API</h4>
+
+<blockquote>
+<p>The Article API is used to extract clean article text from news article, blog post and similar text-heavy web pages.</p>
+</blockquote>
+
+<p>This is an example java class that could be filled with data from the articles API according to fields' names :</p>
+
+<div class="highlight highlight-Java"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BlogPost</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">author</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getTitle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getAuthor</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuthor</span><span class="o">(</span><span class="n">String</span> <span class="n">author</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getText</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">text</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setText</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"BlogPost{"</span> <span class="o">+</span>
+                <span class="s">"title='"</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", author='"</span> <span class="o">+</span> <span class="n">author</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", text='"</span> <span class="o">+</span> <span class="n">text</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="sc">'}'</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>In order to fill this class with data all we need to do is  :</p>
+
+<div class="highlight highlight-Java"><pre>    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">){</span>
+
+        <span class="n">String</span> <span class="n">testToken</span><span class="o">=</span><span class="s">"3....9c359"</span><span class="o">;</span><span class="c1">//set your api token here </span>
+
+        <span class="c1">// Create DiffbotClient instance with the appropriate token</span>
+        <span class="n">DiffbotClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         article data is loaded into the BlogPost class fields depending on the fields' names</span>
+<span class="cm">         if the class has a certain field available in the RESTful article resource then the field is filled with the</span>
+<span class="cm">         appropriate data</span>
+<span class="cm">         */</span>
+
+        <span class="n">BlogPost</span> <span class="n">b</span><span class="o">=</span> <span class="o">(</span><span class="n">BlogPost</span><span class="o">)</span> <span class="n">client</span><span class="o">.</span><span class="na">getArticle</span><span class="o">(</span><span class="n">BlogPost</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="s">"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+    <span class="o">}</span>
+    <span class="o">...</span>
+</pre></div>
+
+<h4>
+<a name="v-2-2-using-the-products-api" class="anchor" href="#v-2-2-using-the-products-api"><span class="octicon octicon-link"></span></a>V-2-2 Using the products API</h4>
+
+<blockquote>
+<p>The Product API analyzes a shopping or e-commerce product page and returns information on the product.</p>
+</blockquote>
+
+<p>This is example JSON data made by the product API at <a href="http://api.diffbot.com/v2/product">http://api.diffbot.com/v2/product</a> :</p>
+
+<div class="highlight highlight-JSON"><pre><span class="p">{</span>
+  <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"product"</span><span class="p">,</span>
+  <span class="nt">"products"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">"title"</span><span class="p">:</span> <span class="s2">"iRobot 650 Roomba Vacuuming Robot"</span><span class="p">,</span>
+      <span class="nt">"description"</span><span class="p">:</span> <span class="s2">"The new iRobot Roomba 650 Vacuum Cleaning Robot provides a superior level of cleaning with less work for you. With AeroVac Technology and a new brush design, Roomba 650 is better equipped to handle fibers like hair, pet fur, lint and carpet fuzz. Materials: Vacuum Cleaning Robot Dimensions: 17 inches long x 18 inches wide x 5 inches high Weight: 11 pounds Included parts: One (1)Roomba 650 Vacuum Cleaning Robot With AeroVac Bin, one (1) Self-Charging Home Base, one (1) Battery Charger, one (1) Extra AeroVac Filter, one (1) Auto Virtual Wall and one (1) Brush Cleaning Tool Power source: Battery Model: iRobot Roomba 650"</span><span class="p">,</span>
+      <span class="nt">"offerPrice"</span><span class="p">:</span> <span class="s2">"$399.99"</span><span class="p">,</span>
+      <span class="nt">"productId"</span><span class="p">:</span> <span class="s2">"15268099"</span><span class="p">,</span>
+      <span class="nt">"media"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="nt">"height"</span><span class="p">:</span> <span class="mi">320</span><span class="p">,</span>
+          <span class="nt">"width"</span><span class="p">:</span> <span class="mi">320</span><span class="p">,</span>
+          <span class="nt">"primary"</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nt">"link"</span><span class="p">:</span> <span class="s2">"http://ak1.ostkcdn.com/images/products/7886009/cc8883ce-f6a0-44a7-836b-b55b4f9ce1ef_320.jpg"</span><span class="p">,</span>
+          <span class="nt">"caption"</span><span class="p">:</span> <span class="s2">"The new iRobot Roomba 650 Vacuum Cleaning Robot provides a superior level of cleaning with less work for you. With AeroVac Technology and a new brush design, Roomba 650 is better equipped to handle fibers like hair, pet fur, lint and carpet fuzz."</span><span class="p">,</span>
+          <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"image"</span><span class="p">,</span>
+          <span class="nt">"xpath"</span><span class="p">:</span> <span class="s2">"/HTML/BODY/DIV[@id='product-page']/DIV[@id='bd']/DIV[@id='pageContainer']/DIV[@id='productWrap']/DIV[@id='prod_leftCol']/DIV[@id='prod_main']/DIV[@id='prod_mainLeft']/DIV[@id='proImageContainer']/DIV[@id='proImageHero']/DIV[@class='proImageStack']/DIV[@class='proImageCenter']/IMG"</span>
+        <span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">],</span>
+  <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>This is an example java class that could be filled with data from the articles API according to fields' names :</p>
+
+<div class="highlight highlight-Java"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">diffbot</span><span class="o">.</span><span class="na">clients</span><span class="o">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Created by wadi chemkhi on 10/01/14.</span>
+<span class="cm"> * Email : wadi.chemkhi@gmail.com</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">description</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">offerPrice</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">regularPrice</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">saveAmount</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getTitle</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setTitle</span><span class="o">(</span><span class="n">String</span> <span class="n">title</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getDescription</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">description</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDescription</span><span class="o">(</span><span class="n">String</span> <span class="n">description</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">description</span> <span class="o">=</span> <span class="n">description</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getOfferPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">offerPrice</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setOfferPrice</span><span class="o">(</span><span class="n">String</span> <span class="n">offerPrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">offerPrice</span> <span class="o">=</span> <span class="n">offerPrice</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getRegularPrice</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">regularPrice</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setRegularPrice</span><span class="o">(</span><span class="n">String</span> <span class="n">regularPrice</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">regularPrice</span> <span class="o">=</span> <span class="n">regularPrice</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getSaveAmount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">saveAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setSaveAmount</span><span class="o">(</span><span class="n">String</span> <span class="n">saveAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">saveAmount</span> <span class="o">=</span> <span class="n">saveAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">"Product{"</span> <span class="o">+</span>
+                <span class="s">"title='"</span> <span class="o">+</span> <span class="n">title</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", description='"</span> <span class="o">+</span> <span class="n">description</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", offerPrice='"</span> <span class="o">+</span> <span class="n">offerPrice</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", regularPrice='"</span> <span class="o">+</span> <span class="n">regularPrice</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="s">", saveAmount='"</span> <span class="o">+</span> <span class="n">saveAmount</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+                <span class="sc">'}'</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</pre></div>
+
+<p>A List of java POJOs can be generated according to the product api response data through the <code>DiffbotClient</code> .</p>
+
+<div class="highlight highlight-Java"><pre>    <span class="o">...</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">){</span>
+
+        <span class="n">String</span> <span class="n">testToken</span><span class="o">=</span><span class="s">"3....9c359"</span><span class="o">;</span><span class="c1">//set your api token here</span>
+
+        <span class="c1">// Create DiffbotClient instance with the appropriate token</span>
+        <span class="n">DiffbotClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+
+        <span class="c1">// Received products data (json array) is loaded into a List of Product POJOs depending on the class fields' names</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Product</span><span class="o">&gt;</span> <span class="n">l</span><span class="o">=</span> <span class="o">(</span><span class="n">List</span><span class="o">)</span> <span class="n">client</span><span class="o">.</span><span class="na">getProducts</span><span class="o">(</span><span class="n">Product</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="s">"http://www.overstock.com/Home-Garden/iRobot-650-Roomba-Vacuuming-Robot/7886009/product.html"</span><span class="o">);</span>
+
+        <span class="k">for</span><span class="o">(</span><span class="n">Product</span> <span class="n">p</span> <span class="o">:</span><span class="n">l</span><span class="o">)</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+    <span class="o">}</span>
+    <span class="o">...</span>
+</pre></div>
+
+<h4>
+<a name="v-3-3-calling-any-api-using-its-name" class="anchor" href="#v-3-3-calling-any-api-using-its-name"><span class="octicon octicon-link"></span></a>V-3-3 Calling any API using it's name</h4>
+
+<h5>
+<a name="the-diffbotclientcallapi-method-" class="anchor" href="#the-diffbotclientcallapi-method-"><span class="octicon octicon-link"></span></a>The <code>DiffbotClient.callApi</code> method :</h5>
+
+<p>This method offers the possibility to call any available diffbot api using it's name.
+There two overloaded signatures for this method :</p>
+
+<p>1.<code>public Object callApi(String api,ResponseType responseType,String url) throws IOException</code></p>
+
+<p>This method returns a raw json manipulation Object that can be either json.org's <code>JSONObject</code> or Jackson's <code>JsonNode</code>, if preferred.
+The choice can be made using the DiffbotClient.ResponseType enumeration : <code>public enum ResponseType{ Jackson, JSONObject }</code></p>
+
+<p>Usage example :</p>
+
+<div class="highlight highlight-java"><pre><span class="n">DiffbotClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+<span class="n">JsonNode</span> <span class="n">a</span><span class="o">=</span> <span class="o">(</span><span class="n">JsonNode</span><span class="o">)</span> <span class="n">client</span><span class="o">.</span><span class="na">callApi</span><span class="o">(</span><span class="s">"article"</span><span class="o">,</span><span class="n">DiffbotClient</span><span class="o">.</span><span class="na">ResponseType</span><span class="o">.</span><span class="na">Jackson</span><span class="o">,</span><span class="s">"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/"</span><span class="o">);</span>
+</pre></div>
+
+<p>2.<code>public Object callApi(String api,Class&lt;?&gt; clazz ,String url) throws IOException</code></p>
+
+<p>This method returns an instance of the <code>clazz</code> class filled with data returned from the REST api call</p>
+
+<p>Usage example :</p>
+
+<div class="highlight highlight-java"><pre><span class="n">DiffbotClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+<span class="n">BlogPost</span> <span class="n">a</span><span class="o">=</span> <span class="o">(</span><span class="n">BlogPost</span><span class="o">)</span> <span class="n">client</span><span class="o">.</span><span class="na">callApi</span><span class="o">(</span><span class="s">"article"</span><span class="o">,</span><span class="n">BlogPost</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="s">"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html"</span><span class="o">);</span>
+</pre></div>
+
+<h5>
+<a name="calling-custom-api--api-using-its-name" class="anchor" href="#calling-custom-api--api-using-its-name"><span class="octicon octicon-link"></span></a>Calling Custom API  API using it's name</h5>
+
+<p>Using diffbot's <code>Custom API Toolkit</code> it's possible to define custom APIs to extract data from web sites according to custom rules.</p>
+
+<p>These custom APIs are accessible via the <code>DiffbotClient.callApi</code> method when provided with appropriate custom API method.</p>
+
+<p>Usage example :</p>
+
+<div class="highlight highlight-java"><pre><span class="n">DiffbotClient</span> <span class="n">client</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+<span class="n">BlogPost</span> <span class="n">a</span><span class="o">=</span> <span class="o">(</span><span class="n">BlogPost</span><span class="o">)</span> <span class="n">client</span><span class="o">.</span><span class="na">callApi</span><span class="o">(</span><span class="s">"CustomAPI"</span><span class="o">,</span><span class="n">BlogPost</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="s">"http://wadi-chemkhi.blogspot.com/2013/09/la-conquete-de-lexcellence.html"</span><span class="o">);</span>
+</pre></div>
+
+<p>Please notice that the custom API named <code>"CustomAPI"</code> must be configured on the account accessible by the provided token.</p>
+
+<h4>
+<a name="v-3-4-accessing-the-analyse-api" class="anchor" href="#v-3-4-accessing-the-analyse-api"><span class="octicon octicon-link"></span></a>V-3-4 Accessing the Analyse API</h4>
+
+<h4>
+<a name="v-3-5-submitting-a-crawl-job" class="anchor" href="#v-3-5-submitting-a-crawl-job"><span class="octicon octicon-link"></span></a>V-3-5 Submitting a crawl job</h4>
+
+<h2>
+<a name="vi--runing-the-demo" class="anchor" href="#vi--runing-the-demo"><span class="octicon octicon-link"></span></a>VI- Runing the Demo</h2>
+
+<p>Please notice that the previous steps are necessary in order to compile and run the demo.</p>
+
+<p>Demo code :</p>
+
+<div class="highlight highlight-Java"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">diffbot</span><span class="o">.</span><span class="na">clients</span><span class="o">.</span><span class="na">demo</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.diffbot.clients.DiffbotClient</span><span class="o">;</span>
+
+<span class="cm">/**</span>
+<span class="cm"> * Created by wadi chemkhi on 02/01/14.</span>
+<span class="cm"> * Email : wadi.chemkhi@gmail.com</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span> <span class="o">){</span>
+
+        <span class="n">String</span> <span class="n">testToken</span><span class="o">=</span><span class="s">"353883355a5c7ff1793b14f81e19c359"</span><span class="o">;</span>
+
+        <span class="c1">// Create DiffbotClient instance with the appropriate token</span>
+        <span class="n">DiffbotClient</span> <span class="n">articlesClient</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DiffbotClient</span><span class="o">(</span><span class="n">testToken</span><span class="o">);</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         article data is loaded into the Article class fields depending on the fields' names</span>
+<span class="cm">         if the class has a certain field available in the RESTful article resource then the field is filled with the</span>
+<span class="cm">         appropriate data</span>
+<span class="cm">         */</span>
+        <span class="n">Article</span> <span class="n">a</span><span class="o">=</span> <span class="o">(</span><span class="n">Article</span><span class="o">)</span> <span class="n">articlesClient</span><span class="o">.</span><span class="na">getArticle</span><span class="o">(</span><span class="n">Article</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="s">"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+        <span class="cm">/*</span>
+<span class="cm">         Same thing with the BlogPost class. Fields are filled with the appropriate data depending on their names</span>
+<span class="cm">         */</span>
+        <span class="n">BlogPost</span> <span class="n">b</span><span class="o">=</span> <span class="o">(</span><span class="n">BlogPost</span><span class="o">)</span> <span class="n">articlesClient</span><span class="o">.</span><span class="na">getArticle</span><span class="o">(</span><span class="n">BlogPost</span><span class="o">.</span><span class="na">class</span><span class="o">,</span><span class="s">"http://www.xconomy.com/san-francisco/2012/07/25/diffbot-is-using-computer-vision-to-reinvent-the-semantic-web/"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<p>Compile the demo with maven from within the demo folder :</p>
+
+<pre lang="Shell"><code>$&gt; mvn compile
+</code></pre>
+
+<p>See it working by using the maven exec command :</p>
+
+<pre lang="Shell"><code>$&gt; mvn exec:java
+</code></pre>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/wadi-chemkhi/diffbot-java-client/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/wadi-chemkhi/diffbot-java-client/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/wadi-chemkhi/diffbot-java-client"></a> is maintained by <a href="https://github.com/wadi-chemkhi">wadi-chemkhi</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
